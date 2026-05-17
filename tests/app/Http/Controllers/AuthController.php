@@ -25,11 +25,7 @@ class AuthController extends Controller
             ], 422);
         }
 
-        $token =$user->createToken('api')->plainTextToken;
-
-        return [
-            'token' => $token
-        ];
+        return $user;
     }
 
     public function register(Request $request) {
@@ -38,17 +34,5 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|max:255|confirmed'
         ]);
-
-        $user = User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password'])
-        ]);
-
-         $token =$user->createToken('api')->plainTextToken;
-
-        return [
-            'token' => $token
-        ];
     }
 }
